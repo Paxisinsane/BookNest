@@ -28,6 +28,32 @@ header p{margin:0;color:#d7e5f5;font-size:17px}
 }
 main{max-width:1050px;margin:auto;padding:30px 18px}
 .library{
+  display:block;
+}
+.author-group{
+  background:rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:24px;
+}
+.author-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+.author-heading h2{
+  margin:0;
+}
+.author-heading span{
+  background:rgba(255,255,255,.14);
+  padding:7px 12px;
+  border-radius:20px;
+  color:#d7e5f5;
+  font-size:14px;
+}
+.author-books{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
@@ -122,10 +148,19 @@ footer{
 <main>
 
   <section class="library" id="library">
-    <div class="card">
-      <h2>The Dusk Buster Adventures</h2>
-      <div class="author">By Sam Milne</div>
-      <button onclick="openBook()">Read Book</button>
+    <div class="author-group">
+      <div class="author-heading">
+        <h2>📚 Sam Milne</h2>
+        <span>1 book</span>
+      </div>
+
+      <div class="author-books">
+        <div class="card">
+          <h3>The Dusk Buster Adventures</h3>
+          <div class="author">By Sam Milne</div>
+          <button onclick="openBook()">Read Book</button>
+        </div>
+      </div>
     </div>
   </section>
 
