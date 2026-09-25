@@ -3,49 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book Library</title>
+<title>BookNest</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#101827,#27405f);color:white}
-header{text-align:center;padding:30px 20px;background:rgba(0,0,0,.3)}
-header h1{margin:0 0 8px;font-size:34px}
-header p{margin:0;color:#d7e5f5}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#101827,#27405f);
+  color:white;
+}
+header{
+  text-align:center;
+  padding:30px 20px;
+  background:rgba(0,0,0,.3);
+}
+header h1{margin:0 0 8px;font-size:38px}
+header p{margin:0;color:#d7e5f5;font-size:17px}
+.nav{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 main{max-width:1050px;margin:auto;padding:30px 18px}
-.library{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card,.reader{background:white;color:#172033;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.library{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.card,.reader{
+  background:white;
+  color:#172033;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
 .card h2,.reader h2{margin-top:0}
 .author{color:#596579;margin-bottom:18px}
-button{border:0;border-radius:10px;padding:11px 16px;background:#27405f;color:white;cursor:pointer;font-size:15px}
-.reader{display:none;margin-top:0}
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  background:#27405f;
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+}
+button:hover{opacity:.9}
+.reader{display:none}
 .back{margin-bottom:20px}
-.story{white-space:pre-wrap;line-height:1.75;font-size:17px}
-.note{margin-top:25px;padding:16px;border-left:4px solid #27405f;background:#eef3f8;color:#344054}
-footer{text-align:center;padding:25px;color:#c8d4e2}
-input:focus,textarea:focus{outline:2px solid #27405f}
+.story{
+  white-space:pre-wrap;
+  line-height:1.75;
+  font-size:17px;
+}
+.note{
+  margin-top:25px;
+  padding:16px;
+  border-left:4px solid #27405f;
+  background:#eef3f8;
+  color:#344054;
+  border-radius:6px;
+}
+.form-section{
+  display:none;
+  background:white;
+  color:#172033;
+  border-radius:16px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+label{display:block;margin-top:12px}
+input,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 15px;
+  border:1px solid #ccd3dc;
+  border-radius:8px;
+  font:inherit;
+}
+input:focus,textarea:focus{
+  outline:2px solid #27405f;
+}
+.required{color:#b42318}
+.success{
+  display:none;
+  margin-top:20px;
+  padding:16px;
+  border-radius:10px;
+  background:#e8f5e9;
+  color:#205522;
+}
+footer{
+  text-align:center;
+  padding:25px;
+  color:#c8d4e2;
+}
+.small{
+  color:#596579;
+  font-size:14px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>📚 Book Library</h1>
-<p>A place for books submitted to the library.</p>
-<div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-<button onclick="showSection('library')">📚 Browse Books</button>
-<button onclick="showSection('submit')">✍️ Submit Your Book</button>
-</div>
+  <h1>📚 BookNest</h1>
+  <p>A place where readers can discover books and authors can submit their stories.</p>
+
+  <div class="nav">
+    <button onclick="showLibrary()">📚 Browse Books</button>
+    <button onclick="showSubmit()">✍️ Submit Your Book</button>
+  </div>
 </header>
+
 <main>
-<section class="library" id="library">
-<div class="card">
-<h2>The Dusk Buster Adventures</h2>
-<div class="author">By Sam Milne</div>
-<button onclick="openBook()">Read Book</button>
-</div>
-</section>
-<section class="reader" id="reader">
-<button class="back" onclick="closeBook()">← Back to Books</button>
-<h2>The Dusk Buster Adventures</h2>
-<p><strong>By Sam Milne</strong></p>
-<div class="story">Sam set out on his faithful ship, the Dusk Buster towards what he thought to be the tomb of Attila the Hun. Until this time, no one had been this close to finding the secret, triple coffin,  burial place of the ancient Mongolian’s tomb.  
+
+  <section class="library" id="library">
+    <div class="card">
+      <h2>The Dusk Buster Adventures</h2>
+      <div class="author">By Sam Milne</div>
+      <button onclick="openBook()">Read Book</button>
+    </div>
+  </section>
+
+  <section class="reader" id="reader">
+    <button class="back" onclick="showLibrary()">← Back to Books</button>
+
+    <h2>The Dusk Buster Adventures</h2>
+    <p><strong>By Sam Milne</strong></p>
+
+    <div class="story">Sam set out on his faithful ship, the Dusk Buster towards what he thought to be the tomb of Attila the Hun. Until this time, no one had been this close to finding the secret, triple coffin,  burial place of the ancient Mongolian’s tomb.  
  And after some years he saw ahead through the fog an island with a cave.
 He looked anxiously at the tattered map he had been led by for years, could this be it?
 After what seemed like an eternity He brought his long boat ashore.
@@ -69,58 +159,93 @@ I think it is, what were we talking about? You were saying we can’t tell anybo
  Your majesty, if I may have the pleasure of naming this island I would like to call it Death water island.  That’s a good name, said Sam.    
  And so they sailed home, and when Sam got home he had a hot bath and went  straight to bed.
  When he got up in the morning thinking about the foot prints and why they led to a wall.</div>
-<div class="note">This is the first book in the library.</div>
-</section>
 
-<section id="submit" class="reader" style="display:none">
-<button class="back" onclick="showSection('library')">← Back to Books</button>
-<h2>✍️ Submit Your Book</h2>
-<p>Have a story you want to share? Send in your own book for consideration.</p>
+    <div class="note">
+      This is the first book in the BookNest library.
+    </div>
+  </section>
 
-<form id="bookForm" onsubmit="prepareSubmission(event)">
-<label><strong>Book Title</strong></label><br>
-<input id="bookTitle" required style="width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ccd3dc;border-radius:8px">
+  <section class="form-section" id="submit">
+    <button class="back" onclick="showLibrary()">← Back to Books</button>
 
-<label><strong>Author Name</strong></label><br>
-<input id="bookAuthor" required style="width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ccd3dc;border-radius:8px">
+    <h2>✍️ Submit Your Book</h2>
+    <p>Have a book or story you'd like to submit to BookNest? Fill out every field below.</p>
 
-<label><strong>Short Description</strong></label><br>
-<textarea id="bookDescription" rows="4" required style="width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ccd3dc;border-radius:8px"></textarea>
+    <form id="bookForm" onsubmit="prepareSubmission(event)">
 
-<label><strong>Book / Story</strong></label><br>
-<textarea id="bookStory" rows="14" required placeholder="Paste your book here..." style="width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ccd3dc;border-radius:8px"></textarea>
+      <label for="bookTitle"><strong>Book Title</strong> <span class="required">*</span></label>
+      <input id="bookTitle" required placeholder="Enter your book title">
 
-<button type="submit">Prepare My Submission</button>
-</form>
+      <label for="bookAuthor"><strong>Author Name</strong> <span class="required">*</span></label>
+      <input id="bookAuthor" required placeholder="Enter the author's name">
 
-<div id="submissionResult" style="display:none;margin-top:20px;padding:16px;border-radius:10px;background:#eef3f8;color:#344054">
-<strong>Your submission is ready.</strong>
-<p id="submissionText"></p>
-</div>
+      <label for="bookEmail"><strong>Your Email</strong> <span class="required">*</span></label>
+      <input id="bookEmail" type="email" required placeholder="you@example.com">
+      <div class="small">A valid email address is required so BookNest can contact you about your submission.</div>
 
-<div class="note">
-Books are submitted for review first. A book should only be added to the public library after it has been reviewed and approved.
-</div>
-</section>
+      <label for="bookDescription"><strong>Short Description</strong> <span class="required">*</span></label>
+      <textarea id="bookDescription" rows="4" required placeholder="Tell us what your book is about"></textarea>
+
+      <label for="bookStory"><strong>Book / Story</strong> <span class="required">*</span></label>
+      <textarea id="bookStory" rows="16" required placeholder="Paste your book or story here"></textarea>
+
+      <button type="submit">Submit Book</button>
+    </form>
+
+    <div class="success" id="success">
+      <strong>Submission prepared!</strong>
+      <p id="submissionText"></p>
+      <p>The book can now be reviewed before it is added to the BookNest library.</p>
+    </div>
+
+    <div class="note">
+      All fields marked with <strong>*</strong> are required.
+    </div>
+  </section>
+
 </main>
-<footer>Book Library • More submitted books can be added later.</footer>
+
+<footer>
+  BookNest • Discover stories. Share stories.
+</footer>
+
 <script>
-function openBook(){document.getElementById("library").style.display="none";document.getElementById("reader").style.display="block";window.scrollTo(0,0)}
-function closeBook(){document.getElementById("reader").style.display="none";document.getElementById("library").style.display="grid";window.scrollTo(0,0)}
-function showSection(section){
-  document.getElementById("library").style.display = section === "library" ? "grid" : "none";
-  document.getElementById("reader").style.display = "none";
-  document.getElementById("submit").style.display = section === "submit" ? "block" : "none";
+function showLibrary(){
+  document.getElementById("library").style.display="grid";
+  document.getElementById("reader").style.display="none";
+  document.getElementById("submit").style.display="none";
   window.scrollTo(0,0);
 }
+
+function openBook(){
+  document.getElementById("library").style.display="none";
+  document.getElementById("reader").style.display="block";
+  document.getElementById("submit").style.display="none";
+  window.scrollTo(0,0);
+}
+
+function showSubmit(){
+  document.getElementById("library").style.display="none";
+  document.getElementById("reader").style.display="none";
+  document.getElementById("submit").style.display="block";
+  window.scrollTo(0,0);
+}
+
 function prepareSubmission(event){
   event.preventDefault();
-  const title=document.getElementById("bookTitle").value;
-  const author=document.getElementById("bookAuthor").value;
+
+  const title=document.getElementById("bookTitle").value.trim();
+  const author=document.getElementById("bookAuthor").value.trim();
+  const email=document.getElementById("bookEmail").value.trim();
+
   document.getElementById("submissionText").textContent =
-    '"' + title + '" by ' + author + ' has been prepared for submission. The site owner can review it before adding it to the library.';
-  document.getElementById("submissionResult").style.display="block";
+    '"' + title + '" by ' + author +
+    ' has been submitted using the email address ' + email + '.';
+
+  document.getElementById("success").style.display="block";
+  document.getElementById("success").scrollIntoView({behavior:"smooth"});
 }
 </script>
+
 </body>
 </html>
