@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,26 +40,14 @@ header p{
   flex-wrap:wrap;
 }
 
-.account-bar{
-  margin-top:15px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.account-email{
-  background:rgba(255,255,255,.12);
-  padding:9px 13px;
-  border-radius:10px;
-  font-size:14px;
-}
-
 main{
   max-width:1050px;
   margin:auto;
   padding:30px 18px;
+}
+
+.library{
+  display:block;
 }
 
 .author-group{
@@ -96,10 +83,7 @@ main{
   gap:20px;
 }
 
-.card,
-.reader,
-.form-section,
-.account-section{
+.card,.reader,.account-box{
   background:white;
   color:#172033;
   border-radius:16px;
@@ -107,7 +91,7 @@ main{
   box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-.card h3{
+.card h2,.reader h2{
   margin-top:0;
 }
 
@@ -130,17 +114,7 @@ button:hover{
   opacity:.9;
 }
 
-button.secondary{
-  background:#596579;
-}
-
-button.danger{
-  background:#b42318;
-}
-
-.reader,
-.form-section,
-.account-section{
+.reader{
   display:none;
 }
 
@@ -163,13 +137,31 @@ button.danger{
   border-radius:6px;
 }
 
+.form-section{
+  display:none;
+  background:white;
+  color:#172033;
+  border-radius:16px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.account-section{
+  display:none;
+  max-width:550px;
+  margin:auto;
+}
+
+.account-box h2{
+  margin-top:0;
+}
+
 label{
   display:block;
   margin-top:12px;
 }
 
-input,
-textarea{
+input,textarea{
   width:100%;
   padding:12px;
   margin:7px 0 15px;
@@ -178,8 +170,7 @@ textarea{
   font:inherit;
 }
 
-input:focus,
-textarea:focus{
+input:focus,textarea:focus{
   outline:2px solid #27405f;
 }
 
@@ -187,49 +178,50 @@ textarea:focus{
   color:#b42318;
 }
 
-.small{
-  color:#596579;
-  font-size:14px;
-}
-
-.message{
-  display:none;
-  margin:15px 0;
-  padding:14px;
-  border-radius:10px;
-}
-
-.error{
-  background:#fdecec;
-  color:#8a1c1c;
-}
-
 .success{
+  display:none;
+  margin-top:20px;
+  padding:16px;
+  border-radius:10px;
   background:#e8f5e9;
   color:#205522;
 }
 
-.account-switch{
-  text-align:center;
-  margin-top:18px;
-  color:#596579;
+.error{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  background:#fdecec;
+  color:#9b1c1c;
 }
 
-.account-switch button{
-  background:none;
-  color:#27405f;
-  padding:4px;
-  font-weight:bold;
-}
-
-.hidden{
-  display:none !important;
+.account-status{
+  display:none;
+  margin-top:10px;
+  color:#d7e5f5;
+  font-size:14px;
 }
 
 footer{
   text-align:center;
   padding:25px;
   color:#c8d4e2;
+}
+
+.small{
+  color:#596579;
+  font-size:14px;
+}
+
+.account-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.logout{
+  background:#8b2635;
 }
 </style>
 </head>
@@ -240,110 +232,76 @@ footer{
 
   <h1>📚 BookNest</h1>
 
-  <p>
-    A place where readers can discover books and authors can submit their stories.
-  </p>
+  <p>A place where readers can discover books and authors can submit their stories.</p>
 
   <div class="nav">
 
-    <button onclick="showLibrary()">
-      📚 Browse Books
-    </button>
+    <button onclick="showLibrary()">📚 Browse Books</button>
 
-    <button onclick="showSubmit()">
-      ✍️ Submit Your Book
-    </button>
+    <button onclick="showSubmit()">✍️ Submit Your Book</button>
 
-    <button onclick="showAccount()" id="accountButton">
-      👤 Account
-    </button>
+    <button id="accountButton" onclick="showAccount()">👤 Create Account / Log In</button>
 
-  </div>
-
-  <div class="account-bar">
-
-    <div
-      class="account-email hidden"
-      id="loggedInEmail">
-    </div>
-
-    <button
-      class="danger hidden"
-      id="logoutButton"
-      onclick="logout()">
+    <button id="logoutButton"
+            class="logout"
+            onclick="logout()"
+            style="display:none;">
       Log Out
     </button>
 
   </div>
+
+  <div class="account-status" id="accountStatus"></div>
 
 </header>
 
 
 <main>
 
+  <!-- LIBRARY -->
 
-<!-- =========================
-     LIBRARY
-========================= -->
+  <section class="library" id="library">
 
-<section id="library">
+    <div class="author-group">
 
-  <div class="author-group">
+      <div class="author-heading">
 
-    <div class="author-heading">
+        <h2>📚 Sam Milne</h2>
 
-      <h2>📚 Sam Milne</h2>
+        <span>1 book</span>
 
-      <span>1 book</span>
+      </div>
 
-    </div>
+      <div class="author-books">
 
-    <div class="author-books">
+        <div class="card">
 
-      <div class="card">
+          <h3>The Dusk Buster Adventures</h3>
 
-        <h3>
-          The Dusk Buster Adventures
-        </h3>
+          <div class="author">By Sam Milne</div>
 
-        <div class="author">
-          By Sam Milne
+          <button onclick="openBook()">Read Book</button>
+
         </div>
-
-        <button onclick="openBook()">
-          Read Book
-        </button>
 
       </div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- =========================
-     BOOK READER
-========================= -->
+  <!-- BOOK READER -->
 
-<section class="reader" id="reader">
+  <section class="reader" id="reader">
 
-  <button
-    class="back"
-    onclick="showLibrary()">
-    ← Back to Books
-  </button>
+    <button class="back" onclick="showLibrary()">← Back to Books</button>
 
-  <h2>
-    The Dusk Buster Adventures
-  </h2>
+    <h2>The Dusk Buster Adventures</h2>
 
-  <p>
-    <strong>By Sam Milne</strong>
-  </p>
+    <p><strong>By Sam Milne</strong></p>
 
-  <div class="story">Sam set out on his faithful ship, the Dusk Buster towards what he thought to be the tomb of Attila the Hun. Until this time, no one had been this close to finding the secret, triple coffin,  burial place of the ancient Mongolian’s tomb.  
+    <div class="story">Sam set out on his faithful ship, the Dusk Buster towards what he thought to be the tomb of Attila the Hun. Until this time, no one had been this close to finding the secret, triple coffin,  burial place of the ancient Mongolian’s tomb.  
  And after some years he saw ahead through the fog an island with a cave.
 He looked anxiously at the tattered map he had been led by for years, could this be it?
 After what seemed like an eternity He brought his long boat ashore.
@@ -368,41 +326,722 @@ I think it is, what were we talking about? You were saying we can’t tell anybo
  And so they sailed home, and when Sam got home he had a hot bath and went  straight to bed.
  When he got up in the morning thinking about the foot prints and why they led to a wall.</div>
 
-  <div class="note">
-    This is the first book in the BookNest library.
-  </div>
+    <div class="note">
+      This is the first book in the BookNest library.
+    </div>
 
-</section>
-
-
-<!-- =========================
-     ACCOUNT
-========================= -->
-
-<section class="account-section" id="account">
-
-  <button
-    class="back"
-    onclick="showLibrary()">
-    ← Back to Books
-  </button>
-
-  <h2 id="accountTitle">
-    👤 Create Your BookNest Account
-  </h2>
-
-  <p id="accountDescription">
-    Create an account using your email address so you can log back into BookNest later.
-  </p>
+  </section>
 
 
-  <div
-    class="message error"
-    id="accountError">
-  </div>
+  <!-- SUBMIT BOOK -->
 
-  <div
-    class="message success"
-    id="accountSuccess">
-  </div>
-```
+  <section class="form-section" id="submit">
+
+    <button class="back" onclick="showLibrary()">← Back to Books</button>
+
+    <h2>✍️ Submit Your Book</h2>
+
+    <p>
+      Have a book or story you'd like to submit to BookNest?
+      Fill out every field below.
+    </p>
+
+    <form id="bookForm" onsubmit="prepareSubmission(event)">
+
+      <label for="bookTitle">
+        <strong>Book Title</strong>
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="bookTitle"
+        name="bookTitle"
+        required
+        placeholder="Enter your book title"
+      >
+
+
+      <label for="bookAuthor">
+        <strong>Author Name</strong>
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="bookAuthor"
+        name="bookAuthor"
+        required
+        placeholder="Enter the author's name"
+      >
+
+
+      <label for="bookEmail">
+        <strong>Your Email</strong>
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="bookEmail"
+        name="bookEmail"
+        type="email"
+        required
+        placeholder="you@example.com"
+      >
+
+      <div class="small">
+        A valid email address is required so BookNest can contact you about your submission.
+      </div>
+
+
+      <label for="bookDescription">
+        <strong>Short Description</strong>
+        <span class="required">*</span>
+      </label>
+
+      <textarea
+        id="bookDescription"
+        name="bookDescription"
+        rows="4"
+        required
+        placeholder="Tell us what your book is about"
+      ></textarea>
+
+
+      <label for="bookStory">
+        <strong>Book / Story</strong>
+        <span class="required">*</span>
+      </label>
+
+      <textarea
+        id="bookStory"
+        name="bookStory"
+        rows="16"
+        required
+        placeholder="Paste your book or story here"
+      ></textarea>
+
+
+      <button type="submit">
+        Submit Book
+      </button>
+
+    </form>
+
+
+    <div class="success" id="success">
+
+      <strong>Submission prepared!</strong>
+
+      <p id="submissionText"></p>
+
+      <p>
+        The book can now be reviewed before it is added to the BookNest library.
+      </p>
+
+    </div>
+
+
+    <div class="note">
+
+      All fields marked with <strong>*</strong> are required.
+
+    </div>
+
+  </section>
+
+
+  <!-- ACCOUNT -->
+
+  <section class="account-section" id="account">
+
+    <div class="account-box">
+
+      <button class="back" onclick="showLibrary()">
+        ← Back to Books
+      </button>
+
+      <h2>👤 BookNest Account</h2>
+
+      <p id="accountIntro">
+        Create an account or log in to your existing BookNest account.
+      </p>
+
+
+      <!-- CREATE ACCOUNT -->
+
+      <div id="createAccountArea">
+
+        <h3>Create Account</h3>
+
+        <label for="createName">
+          <strong>Your Name</strong>
+        </label>
+
+        <input
+          id="createName"
+          type="text"
+          placeholder="Enter your name"
+        >
+
+
+        <label for="createEmail">
+          <strong>Email</strong>
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="createEmail"
+          type="email"
+          required
+          placeholder="you@example.com"
+        >
+
+
+        <label for="createPassword">
+          <strong>Password</strong>
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="createPassword"
+          type="password"
+          required
+          placeholder="Create a password"
+        >
+
+
+        <button onclick="createAccount()">
+          Create Account
+        </button>
+
+        <div class="error" id="createError"></div>
+
+        <p class="small">
+          Already have an account?
+          <button onclick="showLogin()" style="background:none;color:#27405f;padding:0;">
+            Log In
+          </button>
+        </p>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <div id="loginArea" style="display:none;">
+
+        <h3>Log In</h3>
+
+        <label for="loginEmail">
+          <strong>Email</strong>
+        </label>
+
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+
+
+        <label for="loginPassword">
+          <strong>Password</strong>
+        </label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Your password"
+        >
+
+
+        <button onclick="login()">
+          Log In
+        </button>
+
+        <div class="error" id="loginError"></div>
+
+        <p class="small">
+          Don't have an account?
+          <button onclick="showCreateAccount()" style="background:none;color:#27405f;padding:0;">
+            Create one
+          </button>
+        </p>
+
+      </div>
+
+
+      <!-- LOGGED IN -->
+
+      <div id="loggedInArea" style="display:none;">
+
+        <h3>Welcome to BookNest! 📚</h3>
+
+        <p id="welcomeText"></p>
+
+        <div class="note">
+          You are currently logged in.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  BookNest • Discover stories. Share stories.
+</footer>
+
+
+<script>
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function hideAll(){
+
+  document.getElementById("library").style.display="none";
+
+  document.getElementById("reader").style.display="none";
+
+  document.getElementById("submit").style.display="none";
+
+  document.getElementById("account").style.display="none";
+
+}
+
+
+function showLibrary(){
+
+  hideAll();
+
+  document.getElementById("library").style.display="block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+function openBook(){
+
+  hideAll();
+
+  document.getElementById("reader").style.display="block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+function showSubmit(){
+
+  hideAll();
+
+  document.getElementById("submit").style.display="block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+function showAccount(){
+
+  hideAll();
+
+  document.getElementById("account").style.display="block";
+
+  updateAccountScreen();
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   ACCOUNT SYSTEM
+========================= */
+
+function getAccounts(){
+
+  return JSON.parse(
+    localStorage.getItem("booknestAccounts") || "{}"
+  );
+
+}
+
+
+function saveAccounts(accounts){
+
+  localStorage.setItem(
+    "booknestAccounts",
+    JSON.stringify(accounts)
+  );
+
+}
+
+
+function createAccount(){
+
+  const name =
+    document.getElementById("createName").value.trim();
+
+  const email =
+    document.getElementById("createEmail").value.trim().toLowerCase();
+
+  const password =
+    document.getElementById("createPassword").value;
+
+
+  const error =
+    document.getElementById("createError");
+
+
+  error.style.display="none";
+
+
+  if(!email || !password){
+
+    error.textContent =
+      "Please enter your email and password.";
+
+    error.style.display="block";
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    error.textContent =
+      "Your password must be at least 6 characters.";
+
+    error.style.display="block";
+
+    return;
+
+  }
+
+
+  const accounts = getAccounts();
+
+
+  if(accounts[email]){
+
+    error.textContent =
+      "An account with that email already exists.";
+
+    error.style.display="block";
+
+    return;
+
+  }
+
+
+  accounts[email] = {
+
+    name:name || "BookNest User",
+
+    email:email,
+
+    password:password
+
+  };
+
+
+  saveAccounts(accounts);
+
+
+  localStorage.setItem(
+    "booknestLoggedIn",
+    email
+  );
+
+
+  document.getElementById("createName").value="";
+
+  document.getElementById("createEmail").value="";
+
+  document.getElementById("createPassword").value="";
+
+
+  updateAccountScreen();
+
+  updateHeader();
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim().toLowerCase();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+
+  const error =
+    document.getElementById("loginError");
+
+
+  error.style.display="none";
+
+
+  const accounts = getAccounts();
+
+
+  if(!accounts[email]){
+
+    error.textContent =
+      "No account was found with that email.";
+
+    error.style.display="block";
+
+    return;
+
+  }
+
+
+  if(accounts[email].password !== password){
+
+    error.textContent =
+      "That password is incorrect.";
+
+    error.style.display="block";
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "booknestLoggedIn",
+    email
+  );
+
+
+  document.getElementById("loginEmail").value="";
+
+  document.getElementById("loginPassword").value="";
+
+
+  updateAccountScreen();
+
+  updateHeader();
+
+}
+
+
+/* =========================
+   LOG OUT
+========================= */
+
+function logout(){
+
+  localStorage.removeItem(
+    "booknestLoggedIn"
+  );
+
+  updateHeader();
+
+  showLibrary();
+
+}
+
+
+/* =========================
+   ACCOUNT SCREEN
+========================= */
+
+function updateAccountScreen(){
+
+  const loggedInEmail =
+    localStorage.getItem("booknestLoggedIn");
+
+
+  const createArea =
+    document.getElementById("createAccountArea");
+
+  const loginArea =
+    document.getElementById("loginArea");
+
+  const loggedInArea =
+    document.getElementById("loggedInArea");
+
+  const intro =
+    document.getElementById("accountIntro");
+
+
+  if(loggedInEmail){
+
+    const accounts = getAccounts();
+
+    const account = accounts[loggedInEmail];
+
+
+    createArea.style.display="none";
+
+    loginArea.style.display="none";
+
+    loggedInArea.style.display="block";
+
+    intro.textContent="";
+
+
+    document.getElementById("welcomeText").textContent =
+      "You are logged in as " +
+      (account.name || "BookNest User") +
+      " (" + loggedInEmail + ").";
+
+  }else{
+
+    createArea.style.display="block";
+
+    loginArea.style.display="none";
+
+    loggedInArea.style.display="none";
+
+    intro.textContent =
+      "Create an account or log in to your existing BookNest account.";
+
+  }
+
+}
+
+
+/* =========================
+   SWITCH ACCOUNT SCREENS
+========================= */
+
+function showLogin(){
+
+  document.getElementById("createAccountArea").style.display="none";
+
+  document.getElementById("loginArea").style.display="block";
+
+  document.getElementById("createError").style.display="none";
+
+}
+
+
+function showCreateAccount(){
+
+  document.getElementById("loginArea").style.display="none";
+
+  document.getElementById("createAccountArea").style.display="block";
+
+  document.getElementById("loginError").style.display="none";
+
+}
+
+
+/* =========================
+   HEADER ACCOUNT STATUS
+========================= */
+
+function updateHeader(){
+
+  const loggedInEmail =
+    localStorage.getItem("booknestLoggedIn");
+
+
+  const accountButton =
+    document.getElementById("accountButton");
+
+  const logoutButton =
+    document.getElementById("logoutButton");
+
+  const status =
+    document.getElementById("accountStatus");
+
+
+  if(loggedInEmail){
+
+    const accounts = getAccounts();
+
+    const account = accounts[loggedInEmail];
+
+
+    accountButton.textContent="👤 My Account";
+
+    logoutButton.style.display="inline-block";
+
+    status.style.display="block";
+
+    status.textContent =
+      "Logged in as " +
+      (account.name || "BookNest User");
+
+  }else{
+
+    accountButton.textContent=
+      "👤 Create Account / Log In";
+
+    logoutButton.style.display="none";
+
+    status.style.display="none";
+
+  }
+
+}
+
+
+/* =========================
+   BOOK SUBMISSION
+========================= */
+
+function prepareSubmission(event){
+
+  event.preventDefault();
+
+
+  const title =
+    document.getElementById("bookTitle").value.trim();
+
+  const author =
+    document.getElementById("bookAuthor").value.trim();
+
+  const email =
+    document.getElementById("bookEmail").value.trim();
+
+
+  document.getElementById("submissionText").textContent =
+    '"' + title + '" by ' + author +
+    ' has been submitted using the email address ' +
+    email + '.';
+
+
+  document.getElementById("success").style.display="block";
+
+
+  document
+    .getElementById("success")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+updateHeader();
+
+updateAccountScreen();
+
+showLibrary();
+
+</script>
+
+</body>
+</html>
