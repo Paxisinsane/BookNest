@@ -178,15 +178,6 @@ input:focus,textarea:focus{
   color:#b42318;
 }
 
-.success{
-  display:none;
-  margin-top:20px;
-  padding:16px;
-  border-radius:10px;
-  background:#e8f5e9;
-  color:#205522;
-}
-
 .error{
   display:none;
   margin-top:15px;
@@ -346,7 +337,8 @@ I think it is, what were we talking about? You were saying we can’t tell anybo
       Fill out every field below.
     </p>
 
-    <form id="bookForm" onsubmit="prepareSubmission(event)">
+    <!-- Formspree integration -->
+    <form id="bookForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST">
 
       <label for="bookTitle">
         <strong>Book Title</strong>
@@ -381,7 +373,7 @@ I think it is, what were we talking about? You were saying we can’t tell anybo
 
       <input
         id="bookEmail"
-        name="bookEmail"
+        name="_replyto"
         type="email"
         required
         placeholder="you@example.com"
@@ -425,19 +417,6 @@ I think it is, what were we talking about? You were saying we can’t tell anybo
       </button>
 
     </form>
-
-
-    <div class="success" id="success">
-
-      <strong>Submission prepared!</strong>
-
-      <p id="submissionText"></p>
-
-      <p>
-        The book can now be reviewed before it is added to the BookNest library.
-      </p>
-
-    </div>
 
 
     <div class="note">
@@ -990,43 +969,6 @@ function updateHeader(){
     status.style.display="none";
 
   }
-
-}
-
-
-/* =========================
-   BOOK SUBMISSION
-========================= */
-
-function prepareSubmission(event){
-
-  event.preventDefault();
-
-
-  const title =
-    document.getElementById("bookTitle").value.trim();
-
-  const author =
-    document.getElementById("bookAuthor").value.trim();
-
-  const email =
-    document.getElementById("bookEmail").value.trim();
-
-
-  document.getElementById("submissionText").textContent =
-    '"' + title + '" by ' + author +
-    ' has been submitted using the email address ' +
-    email + '.';
-
-
-  document.getElementById("success").style.display="block";
-
-
-  document
-    .getElementById("success")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
 
 }
 
