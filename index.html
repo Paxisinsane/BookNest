@@ -1,89 +1,1256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BookNest - Order Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .form-container {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-    h2 {
-      margin-top: 0;
-      color: #333333;
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      color: #555555;
-      font-weight: bold;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-    textarea {
-      resize: vertical;
-      height: 100px;
-    }
-    button {
-      width: 100%;
-      background-color: #e5484d;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    button:hover {
-      background-color: #c93b40;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookNest</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#101827,#27405f);
+  color:white;
+}
+
+header{
+  text-align:center;
+  padding:30px 20px;
+  background:rgba(0,0,0,.3);
+}
+
+header h1{
+  margin:0 0 8px;
+  font-size:38px;
+}
+
+header p{
+  margin:0;
+  color:#d7e5f5;
+  font-size:17px;
+}
+
+.nav{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+main{
+  max-width:1050px;
+  margin:auto;
+  padding:30px 18px;
+}
+
+.author-group{
+  background:rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:24px;
+}
+
+.author-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.author-heading h2{
+  margin:0;
+}
+
+.author-heading span{
+  background:rgba(255,255,255,.14);
+  padding:7px 12px;
+  border-radius:20px;
+  color:#d7e5f5;
+  font-size:14px;
+}
+
+.author-books{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.card,.reader,.form-section,.account-box{
+  background:white;
+  color:#172033;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.card h3{
+  margin-top:0;
+}
+
+.author{
+  color:#596579;
+  margin-bottom:18px;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  background:#27405f;
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.reader{
+  display:none;
+}
+
+.form-section{
+  display:none;
+}
+
+.account-section{
+  display:none;
+  max-width:600px;
+  margin:auto;
+}
+
+.back{
+  margin-bottom:20px;
+}
+
+.story{
+  white-space:pre-wrap;
+  line-height:1.75;
+  font-size:17px;
+}
+
+.note{
+  margin-top:25px;
+  padding:16px;
+  border-left:4px solid #27405f;
+  background:#eef3f8;
+  color:#344054;
+  border-radius:6px;
+}
+
+label{
+  display:block;
+  margin-top:12px;
+}
+
+input,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 15px;
+  border:1px solid #ccd3dc;
+  border-radius:8px;
+  font:inherit;
+}
+
+input:focus,textarea:focus{
+  outline:2px solid #27405f;
+}
+
+.required{
+  color:#b42318;
+}
+
+.error{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  background:#fdecec;
+  color:#9b1c1c;
+  border-radius:8px;
+}
+
+.success{
+  display:none;
+  margin-top:20px;
+  padding:16px;
+  border-radius:10px;
+  background:#e8f5e9;
+  color:#205522;
+}
+
+.small{
+  color:#596579;
+  font-size:14px;
+}
+
+.account-links{
+  margin-top:18px;
+}
+
+.account-links button{
+  background:none;
+  color:#27405f;
+  padding:0;
+}
+
+#loginBox{
+  display:none;
+}
+
+#loggedInBox{
+  display:none;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#c8d4e2;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="form-container">
-    <h2>BookNest Order Form</h2>
-    
-    <form action="https://formspree.io/f/mjykalon" method="POST">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+<header>
 
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" placeholder="name@example.com" required>
+<h1>📚 BookNest</h1>
 
-      <label for="book-title">Book Title</label>
-      <input type="text" id="book-title" name="book_title" placeholder="Which book would you like?" required>
+<p>A place where readers can discover books and authors can submit their stories.</p>
 
-      <label for="message">Additional Notes / Address</label>
-      <textarea id="message" name="message" placeholder="Include your shipping address or special instructions..."></textarea>
+<div class="nav">
 
-      <button type="submit">Place Order</button>
-    </form>
-  </div>
+<button onclick="showLibrary()">📚 Browse Books</button>
+
+<button onclick="showSubmit()">✍️ Submit Your Book</button>
+
+<button id="accountButton" onclick="showAccount()">
+👤 Create Account / Log In
+</button>
+
+<button id="logoutButton"
+onclick="logout()"
+style="display:none;background:#8b2635;">
+Log Out
+</button>
+
+</div>
+
+</header>
+
+
+<main>
+
+<!-- ================= BOOK LIBRARY ================= -->
+
+<section id="library">
+
+<!-- SAM MILNE -->
+
+<div class="author-group">
+
+<div class="author-heading">
+
+<h2>📚 Sam Milne</h2>
+
+<span>1 book</span>
+
+</div>
+
+<div class="author-books">
+
+<div class="card">
+
+<h3>The Dusk Buster Adventures</h3>
+
+<div class="author">
+By Sam Milne
+</div>
+
+<button onclick="openBook('dusk')">
+Read Book
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CHATGPT BOOKS -->
+
+<div class="author-group">
+
+<div class="author-heading">
+
+<h2>🤖 ChatGPT</h2>
+
+<span>2 books</span>
+
+</div>
+
+<div class="author-books">
+
+
+<div class="card">
+
+<h3>The Mystery of Blackwood Island</h3>
+
+<div class="author">
+By ChatGPT
+</div>
+
+<button onclick="openBook('blackwood')">
+Read Book
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>The Clockwork Lighthouse</h3>
+
+<div class="author">
+By ChatGPT
+</div>
+
+<button onclick="openBook('lighthouse')">
+Read Book
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= READER ================= -->
+
+<section class="reader" id="reader">
+
+<button class="back" onclick="showLibrary()">
+← Back to Books
+</button>
+
+<h2 id="readerTitle"></h2>
+
+<p>
+<strong id="readerAuthor"></strong>
+</p>
+
+<div class="story" id="story"></div>
+
+<div class="note">
+Thanks for reading on BookNest! 📚
+</div>
+
+</section>
+
+
+<!-- ================= SUBMIT ================= -->
+
+<section class="form-section" id="submit">
+
+<button class="back" onclick="showLibrary()">
+← Back to Books
+</button>
+
+<h2>✍️ Submit Your Book</h2>
+
+<p>
+Have a book or story you'd like to submit to BookNest?
+Fill out every field below.
+</p>
+
+
+<form
+action="https://formspree.io/f/myezjagy"
+method="POST"
+>
+
+<label>
+<strong>Book Title</strong>
+<span class="required">*</span>
+</label>
+
+<input
+name="bookTitle"
+required
+placeholder="Enter your book title"
+>
+
+
+<label>
+<strong>Author Name</strong>
+<span class="required">*</span>
+</label>
+
+<input
+name="bookAuthor"
+required
+placeholder="Enter the author's name"
+>
+
+
+<label>
+<strong>Your Email</strong>
+<span class="required">*</span>
+</label>
+
+<input
+name="email"
+type="email"
+required
+placeholder="you@example.com"
+>
+
+
+<label>
+<strong>Short Description</strong>
+<span class="required">*</span>
+</label>
+
+<textarea
+name="description"
+rows="4"
+required
+placeholder="Tell us what your book is about"
+></textarea>
+
+
+<label>
+<strong>Book / Story</strong>
+<span class="required">*</span>
+</label>
+
+<textarea
+name="story"
+rows="16"
+required
+placeholder="Paste your book or story here"
+></textarea>
+
+
+<button type="submit">
+Submit Book
+</button>
+
+</form>
+
+<div class="note">
+All fields marked with <strong>*</strong> are required.
+</div>
+
+</section>
+
+
+<!-- ================= ACCOUNT ================= -->
+
+<section class="account-section" id="account">
+
+<div class="account-box">
+
+<button class="back" onclick="showLibrary()">
+← Back to Books
+</button>
+
+
+<!-- CREATE ACCOUNT -->
+
+<div id="createBox">
+
+<h2>👤 Create a BookNest Account</h2>
+
+<p>
+Create an account so you can log back into BookNest later.
+</p>
+
+
+<form id="signupForm">
+
+<label>
+<strong>Your Name</strong>
+</label>
+
+<input
+id="signupName"
+type="text"
+placeholder="Enter your name"
+>
+
+
+<label>
+<strong>Email</strong>
+<span class="required">*</span>
+</label>
+
+<input
+id="signupEmail"
+type="email"
+required
+placeholder="you@example.com"
+>
+
+
+<label>
+<strong>Password</strong>
+<span class="required">*</span>
+</label>
+
+<input
+id="signupPassword"
+type="password"
+required
+minlength="6"
+placeholder="Create a password"
+>
+
+
+<button type="submit">
+Create Account
+</button>
+
+</form>
+
+
+<div class="error" id="signupError"></div>
+
+<p class="account-links">
+
+Already have an account?
+
+<button onclick="showLogin()">
+Log In
+</button>
+
+</p>
+
+</div>
+
+
+<!-- LOGIN -->
+
+<div id="loginBox">
+
+<h2>🔐 Log In</h2>
+
+<p>
+Log in to your BookNest account.
+</p>
+
+
+<form id="loginForm">
+
+<label>
+<strong>Email</strong>
+</label>
+
+<input
+id="loginEmail"
+type="email"
+required
+placeholder="you@example.com"
+>
+
+
+<label>
+<strong>Password</strong>
+</label>
+
+<input
+id="loginPassword"
+type="password"
+required
+placeholder="Your password"
+>
+
+
+<button type="submit">
+Log In
+</button>
+
+</form>
+
+
+<div class="error" id="loginError"></div>
+
+
+<p class="account-links">
+
+Don't have an account?
+
+<button onclick="showCreate()">
+Create one
+</button>
+
+</p>
+
+</div>
+
+
+<!-- LOGGED IN -->
+
+<div id="loggedInBox">
+
+<h2>📚 Welcome to BookNest!</h2>
+
+<p id="welcomeMessage"></p>
+
+<div class="success" style="display:block;">
+
+<strong>You are logged in.</strong>
+
+<p>
+Your BookNest account is active on this browser.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+BookNest • Discover stories. Share stories.
+
+</footer>
+
+
+<script>
+
+/* =========================
+   BOOK DATA
+========================= */
+
+const books = {
+
+dusk:{
+
+title:"The Dusk Buster Adventures",
+
+author:"By Sam Milne",
+
+story:`Sam set out on his faithful ship, the Dusk Buster towards what he thought to be the tomb of Attila the Hun. Until this time, no one had been this close to finding the secret, triple coffin, burial place of the ancient Mongolian’s tomb.
+
+And after some years he saw ahead through the fog an island with a cave.
+
+He looked anxiously at the tattered map he had been led by for years, could this be it?
+
+After what seemed like an eternity He brought his long boat ashore.
+
+He wrapped an oil soaked cloth around the end of a wooden club and lit it at the mouth of the cave.
+
+He sees foot prints leading in after brushing off some cobwebs he went in too.
+
+And he saw carvings of war tribes fighting with cities and walked in a little more.
+
+Into the cave and saw more carvings but instead of seeing more fighting he saw burial drawings.
+
+After entering a corridor he saw oil lamps lit as if someone was expecting him.
+
+He put down his torch, then turned to find the most confusing thing.
+
+He saw foot prints leading straight into a wall.
+
+It seemed as if the fog had cleared because the cave seemed a little brighter than before.
+
+And he noticed a little pond and in it was a coffin that seemed to be made of...gold?
+
+He became very excited and ran to get a rope.
+
+After a lot of doing, with the help of his crew, it was out.
+
+When it was open he found yet another coffin and he knew that this was the tomb of Attila the Hun.
+
+And when he’d opened the third coffin he saw Attila the Hun.
+
+After another lot of doing, they got the coffin out of the cave.
+
+When they got home, Sam was still wondering why the outside coffin was made of gold.
+
+He thought that the outer coffin was made of iron, then silver, then gold.
+
+So, in two weeks he once again set out on his trusty long boat, the Dusk Buster.
+
+And when he got to the cave and stuck a few items in they turned to gold too.
+
+No one can know about this, said Sam.
+
+I swear all of you to secrecy. No one, not even the king, can know about this.
+
+And so they sailed home.
+
+When Sam got home he had a hot bath and went straight to bed.
+
+When he got up in the morning he was thinking about the foot prints and why they led to a wall.`
+
+},
+
+
+blackwood:{
+
+title:"The Mystery of Blackwood Island",
+
+author:"By ChatGPT",
+
+story:`Chapter One: The Island
+
+The boat disappeared into the fog just as the lighthouse bell rang.
+
+Alex stared at the island ahead.
+
+Blackwood Island was supposed to be empty.
+
+At least, that was what the map said.
+
+He stepped onto the wooden dock and heard something move inside the forest.
+
+Crack.
+
+A branch snapped.
+
+Alex froze.
+
+Then he noticed something strange carved into the dock.
+
+Three circles.
+
+One small.
+
+One medium.
+
+One large.
+
+Underneath them were four words:
+
+DO NOT OPEN THE DOOR.
+
+Alex looked toward the lighthouse.
+
+The door at the bottom was wide open.
+
+Chapter Two: The Lighthouse
+
+Alex climbed the lighthouse stairs.
+
+At the top, he found an old room covered in dusty maps.
+
+Every map showed the same island.
+
+But there was one difference.
+
+On every map, a red X marked a different location.
+
+Alex picked up the newest map.
+
+The red X was directly underneath the lighthouse.
+
+Suddenly, the floor shook.
+
+A hidden staircase opened beneath his feet.
+
+Alex looked down.
+
+A warm golden light came from below.
+
+He took a deep breath.
+
+Then he started walking down.`
+
+},
+
+
+lighthouse:{
+
+title:"The Clockwork Lighthouse",
+
+author:"By ChatGPT",
+
+story:`Chapter One: The Strange Light
+
+Every night at exactly midnight, the lighthouse on Storm Bay flashed three times.
+
+Nobody knew why.
+
+The lighthouse had been abandoned for twenty years.
+
+One evening, a kid named Max decided to investigate.
+
+He walked up the rocky path carrying a flashlight.
+
+The lighthouse door was locked.
+
+Then the light flashed.
+
+Once.
+
+Twice.
+
+Three times.
+
+The door suddenly clicked open.
+
+Max pushed it.
+
+Inside, he heard something ticking.
+
+Tick.
+
+Tick.
+
+Tick.
+
+He followed the sound upstairs.
+
+At the top was an enormous machine made of brass gears.
+
+In the middle of it was a glowing blue crystal.
+
+Max stepped closer.
+
+The machine stopped ticking.
+
+A small metal screen turned on.
+
+WELCOME, MAX.
+
+Max jumped backward.
+
+"How does it know my name?"
+
+The machine began ticking again.
+
+Then a hidden message appeared.
+
+THE LIGHTHOUSE IS COUNTING DOWN.
+
+Max looked at the clock.
+
+It said:
+
+00:59:59.
+
+He realized he had exactly one hour to discover what the lighthouse was counting down to.`
+
+}
+
+};
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function hideAll(){
+
+document.getElementById("library").style.display="none";
+
+document.getElementById("reader").style.display="none";
+
+document.getElementById("submit").style.display="none";
+
+document.getElementById("account").style.display="none";
+
+}
+
+
+function showLibrary(){
+
+hideAll();
+
+document.getElementById("library").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+
+function showSubmit(){
+
+hideAll();
+
+document.getElementById("submit").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+
+function openBook(id){
+
+const book=books[id];
+
+document.getElementById("readerTitle").textContent=book.title;
+
+document.getElementById("readerAuthor").textContent=book.author;
+
+document.getElementById("story").textContent=book.story;
+
+hideAll();
+
+document.getElementById("reader").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   ACCOUNT NAVIGATION
+========================= */
+
+function showAccount(){
+
+hideAll();
+
+document.getElementById("account").style.display="block";
+
+updateAccountScreen();
+
+window.scrollTo(0,0);
+
+}
+
+
+function showLogin(){
+
+document.getElementById("createBox").style.display="none";
+
+document.getElementById("loginBox").style.display="block";
+
+document.getElementById("loggedInBox").style.display="none";
+
+}
+
+
+function showCreate(){
+
+document.getElementById("createBox").style.display="block";
+
+document.getElementById("loginBox").style.display="none";
+
+document.getElementById("loggedInBox").style.display="none";
+
+}
+
+
+/* =========================
+   LOCAL ACCOUNT STORAGE
+========================= */
+
+function getAccounts(){
+
+return JSON.parse(
+localStorage.getItem("booknestAccounts") || "{}"
+);
+
+}
+
+
+function saveAccounts(accounts){
+
+localStorage.setItem(
+"booknestAccounts",
+JSON.stringify(accounts)
+);
+
+}
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+document.getElementById("signupForm").addEventListener(
+"submit",
+async function(event){
+
+event.preventDefault();
+
+const name=
+document.getElementById("signupName").value.trim();
+
+const email=
+document.getElementById("signupEmail").value.trim().toLowerCase();
+
+const password=
+document.getElementById("signupPassword").value;
+
+const error=
+document.getElementById("signupError");
+
+error.style.display="none";
+
+
+const accounts=getAccounts();
+
+
+if(accounts[email]){
+
+error.textContent=
+"An account with that email already exists.";
+
+error.style.display="block";
+
+return;
+
+}
+
+
+/*
+  Save account locally so the user can
+  log back in on this browser.
+*/
+
+accounts[email]={
+name:name || "BookNest User",
+email:email,
+password:password
+};
+
+saveAccounts(accounts);
+
+localStorage.setItem(
+"booknestLoggedIn",
+email
+);
+
+
+/*
+  Send the email address to your
+  BookNest account Formspree.
+*/
+
+try{
+
+await fetch(
+"https://formspree.io/f/mjykalon",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Accept":"application/json"
+},
+body:JSON.stringify({
+name:name || "BookNest User",
+email:email,
+message:"New BookNest account created."
+})
+}
+);
+
+}catch(e){
+
+/*
+  The account still works even if
+  Formspree cannot be reached.
+*/
+
+}
+
+
+document.getElementById("signupName").value="";
+
+document.getElementById("signupEmail").value="";
+
+document.getElementById("signupPassword").value="";
+
+updateHeader();
+
+updateAccountScreen();
+
+}
+);
+
+
+/* =========================
+   LOGIN
+========================= */
+
+document.getElementById("loginForm").addEventListener(
+"submit",
+function(event){
+
+event.preventDefault();
+
+const email=
+document.getElementById("loginEmail").value.trim().toLowerCase();
+
+const password=
+document.getElementById("loginPassword").value;
+
+const error=
+document.getElementById("loginError");
+
+error.style.display="none";
+
+
+const accounts=getAccounts();
+
+
+if(!accounts[email]){
+
+error.textContent=
+"No account was found with that email.";
+
+error.style.display="block";
+
+return;
+
+}
+
+
+if(accounts[email].password!==password){
+
+error.textContent=
+"Incorrect password.";
+
+error.style.display="block";
+
+return;
+
+}
+
+
+localStorage.setItem(
+"booknestLoggedIn",
+email
+);
+
+
+document.getElementById("loginEmail").value="";
+
+document.getElementById("loginPassword").value="";
+
+updateHeader();
+
+updateAccountScreen();
+
+}
+);
+
+
+/* =========================
+   ACCOUNT DISPLAY
+========================= */
+
+function updateAccountScreen(){
+
+const loggedIn=
+localStorage.getItem("booknestLoggedIn");
+
+
+if(loggedIn){
+
+const accounts=getAccounts();
+
+const account=accounts[loggedIn];
+
+
+document.getElementById("createBox").style.display="none";
+
+document.getElementById("loginBox").style.display="none";
+
+document.getElementById("loggedInBox").style.display="block";
+
+
+document.getElementById("welcomeMessage").textContent=
+"Welcome, "+
+(account.name || "BookNest User")+
+"! You are logged in with "+
+account.email+".";
+
+}else{
+
+showCreate();
+
+}
+
+}
+
+
+/* =========================
+   LOG OUT
+========================= */
+
+function logout(){
+
+localStorage.removeItem(
+"booknestLoggedIn"
+);
+
+updateHeader();
+
+showLibrary();
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+function updateHeader(){
+
+const loggedIn=
+localStorage.getItem("booknestLoggedIn");
+
+const accountButton=
+document.getElementById("accountButton");
+
+const logoutButton=
+document.getElementById("logoutButton");
+
+
+if(loggedIn){
+
+const accounts=getAccounts();
+
+const account=accounts[loggedIn];
+
+
+accountButton.textContent=
+"👤 My Account";
+
+logoutButton.style.display="inline-block";
+
+}else{
+
+accountButton.textContent=
+"👤 Create Account / Log In";
+
+logoutButton.style.display="none";
+
+}
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+updateHeader();
+
+showLibrary();
+
+</script>
 
 </body>
 </html>
